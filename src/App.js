@@ -1,12 +1,17 @@
+import './App.css';
 import { useState } from 'react';
 import AnimalShow from './AnimalShow';
 
+const animalArr = ['bird', 'cat', 'cow', 'dog', 'gator', 'horse'];
+
 function getRandomAnimal() {
-  const animals = ['bird', 'cat', 'cow', 'dog', 'gator', 'horse'];
-  return(animals[Math.floor(Math.random() * animals.length)]);
+  const choice = Math.floor(Math.random() * animalArr.length);
+  const nextAnimal = animalArr.splice(choice, 1);
+  return nextAnimal;
 }
 
 function App() {
+  if (!animalArr[0]) document.querySelector('button').disabled = true;
   const [animals, setAnimals] = useState([]);
 
   const handleClick = () => {
@@ -18,9 +23,9 @@ function App() {
   });
 
   return (
-    <div>
+    <div className="app">
       <button onClick={handleClick}>Add Animal</button>
-      <div>{renderedAnimals}</div>
+      <div className="animal-list">{renderedAnimals}</div>
     </div>
   );
 }
